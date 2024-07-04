@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { CameraView, Camera } from "expo-camera";
+import ScanButton from "./ScanButton";
 
 type ScanProps = {
   type: string;
@@ -51,7 +52,10 @@ const ScanPage = () => {
         }}
         style={StyleSheet.absoluteFillObject}
       />
+      <View style={styles.buttonContainer}>
 
+      {scanned? <ScanButton buttonText="Skan" action={() => resetScanner()}/> : <ScanButton buttonText="Skanner..." action={() => setScanned(true)}/>}
+        </View>
     </View>
   );
 };
