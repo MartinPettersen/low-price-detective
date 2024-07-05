@@ -1,14 +1,19 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { RootStackParamList } from '../utils/types';
 
 const HomeScreen = () => {
+
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+
   return (
     <View style={styles.container}>
         <Text style={styles.headline}>The Low Price Detective</Text>
         <Text style={styles.text}>Skan et produkt og se om den selges billigere nær deg</Text>
-        <TouchableOpacity style={[styles.button, styles.shadow]}>
+        <TouchableOpacity style={[styles.button, styles.shadow]} onPress={() => navigation.navigate("Scan")}>
             <Text style={styles.buttonText}>
-
                 Skan
             </Text>
         </TouchableOpacity>
