@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import { CameraView, Camera } from "expo-camera";
 import ScanButton from "./ScanButton";
 import { useGetProductInformation } from "../../hooks/useGetProductInformation";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../utils/types";
 
 type ScanProps = {
   type: string;
@@ -14,6 +16,8 @@ const ScanPage = () => {
   const [scanned, setScanned] = useState(true);
   const [ean, setEan] = useState<string | null>(null);
   // const productInfo = useGetProductInformation(ean);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
 
   useEffect(() => {
     const getCameraPermissions = async () => {
@@ -32,6 +36,7 @@ const ScanPage = () => {
   const handleBarCodeScanned = ({ type, data }: ScanProps) => {
     setEan(data);
     setScanned(true);
+    navigation.navigate("Options", { product: data })
   };
 
 

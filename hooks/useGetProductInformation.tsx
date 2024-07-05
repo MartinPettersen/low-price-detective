@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Product } from "../utils/types";
 
 export const useGetProductInformation = (ean: string) => {
-  const [productInformation, setProductInformation] = useState(null);
+  const [productInformation, setProductInformation] = useState<Product[] | null>(null);
 
 
   useEffect(() => {
