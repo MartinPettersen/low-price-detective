@@ -4,6 +4,7 @@ import HomeScreen from './screens/HomeScreen';
 import ScanScreen from './screens/ScanScreen';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import ProductOptionsScreen from './screens/ProductOptionsScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,8 @@ export default function App() {
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Scan" component={ScanScreen} />
+        <Stack.Screen name="Options" component={ProductOptionsScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   )
