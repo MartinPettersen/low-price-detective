@@ -13,52 +13,51 @@ type Props = {
 
 const ProductPage = ({ product }: Props) => {
   //console.log(product);
-  const {lat, lng } = useGetUserLocation()
-  
-  const stores = useGetNearbyStores(59.911491, 10.757933, 10)
+  const { lat, lng } = useGetUserLocation();
+
+  const stores = useGetNearbyStores(lat, lng, 10);
   //console.log(stores)
-  const productInfo: Product[] | null = useGetProductInformation(product)
+  const productInfo: Product[] | null = useGetProductInformation(product);
 
-    if (productInfo) {
+  if (productInfo) {
+    console.log(
+      `Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `
+    );
+  }
 
-        console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `)
-    } 
-
-    if (!productInfo || !stores || !lat || !lng) {
-        return (
-          <View style={styles.container}>
-            <Text>Loading...</Text>
-            <ToScanButton />
-          </View>
-        );
-      }
 
   return (
-<View style={styles.container}>
-  <ProductStores prices={productInfo} stores={stores.data}/>
-      
+    <View style={styles.container}>
+      {(!productInfo || !stores || !lat || !lng) ? 
+        <Text>Loading...</Text>
+
+      :
+
+      <ProductStores prices={productInfo} stores={stores.data} lat={lat} lng={lng} />
+      }
+
       <ToScanButton />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "flex-start",
-        padding: 18,
-        marginTop: 200,
-    },
-    item: {
-        padding: 16,
-        marginVertical: 8,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 5,
-        width: "100%",
-        alignItems: "center",
-      },
-})
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 18,
+    marginTop: 200,
+  },
+  item: {
+    padding: 16,
+    marginVertical: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    width: "100%",
+    alignItems: "center",
+  },
+});
 
 export default ProductPage;

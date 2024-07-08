@@ -1,17 +1,19 @@
 import React from "react";
 import { FlatList, Text, View, StyleSheet } from "react-native";
-import { useGetPriceAtStore, useGetProductInformation } from "../../hooks/useGetPriceAtStore";
+import { useGetPriceAtStore } from "../../hooks/useGetPriceAtStore";
+import useGetTravelDistance from "../../hooks/useGetTravelDistance";
 
 type Props = {
   stores: any[];
   prices: any[];
+  lat: any;
+  lng: any;
 };
 
-const ProductStores = ({ stores, prices }: Props) => {
-  console.log(stores[0].group);
-  console.log(prices[0].current_price.price);
+const ProductStores = ({ stores, prices, lat, lng }: Props) => {
+  //console.log(stores[0].position.lat);
+  console.log(prices[0]);
 
-  // <Text>{`Gå #km for ${item.current_price.price}kr hos ${item.store.name}`}</Text>
   return (
     <View>
       <FlatList
@@ -21,7 +23,7 @@ const ProductStores = ({ stores, prices }: Props) => {
           <View style={styles.item}>
 
             {prices.some((obj) => obj.store && obj.store.code === item.group) ? (
-                <Text>`{item.name} : price {useGetPriceAtStore(item.group, prices)}</Text>
+                <Text>{`${useGetPriceAtStore(item.group, prices)}kr hos ${item.name} avstand: ${useGetTravelDistance(lat, lng, item.position.lat, item.position.lng)} `}</Text>
             ) : (
               <Text>Mangler informasjon</Text>
             )}

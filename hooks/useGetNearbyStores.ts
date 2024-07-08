@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
   const [stores, setStores] = useState<any[] | null>(null);
 
-
   useEffect(() => {
     const fetchStores = async () => {
       try {
@@ -15,19 +14,22 @@ export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
         };
 
         const res = await fetch(url, options);
-        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
 
-        //console.log(data)
+        const data = await res.json();
         setStores(data);
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching nearby stores:", error);
+        setStores(null);
       }
     };
 
     if (lat && lng && km) {
       fetchStores();
     }
-  }, [km]);
+  }, [lat, lng, km]);
 
   return stores;
 };
