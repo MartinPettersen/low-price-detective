@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useGetProductInformation } from "../../hooks/useGetProductInformation";
 import { Product } from "../../utils/types";
 import ToScanButton from "../(navigation)/ToScanButton";
 import { useGetNearbyStores } from "../../hooks/useGetNearbyStores";
+import { useGetUserLocation } from "../../hooks/useGetUserLocation";
 
 type Props = {
   product: string;
@@ -11,26 +12,33 @@ type Props = {
 
 const ProductPage = ({ product }: Props) => {
   console.log(product);
+  const {lat, lng } = useGetUserLocation()
+  // const [stores, setStores] = useState<any[] | null>(null)
+  const stores = useGetNearbyStores(lat, lng, 10)
+  //if (lat && lng) {
+  //
+  //  console.log(`lat: ${lat}, lng: ${lng}`)
+  //  setStores(storesT)
+  // }
 
-  const stores = useGetNearbyStores(59.911491, 10.757933, 10)
-  console.log(stores.data[0].position)
+  const nearbyStores = stores?.data || null;
 
   const productInfo: Product[] | null = useGetProductInformation(product)
-
-    if (productInfo) {
-
-        console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `)
-    } 
-
-    if (!productInfo) {
+  
+  if (productInfo) {
+    
+    console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `)
+  } 
+  
+  if (!productInfo || !nearbyStores ) {
         return (
           <View style={styles.container}>
             <Text>Loading...</Text>
             <ToScanButton />
           </View>
-        );
-      }
-
+    );
+  }
+  console.log(nearbyStores)
   return (
 <View style={styles.container}>
       <FlatList
