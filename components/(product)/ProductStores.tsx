@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, Text, View, StyleSheet } from "react-native";
+import { useGetPriceAtStore, useGetProductInformation } from "../../hooks/useGetPriceAtStore";
 
 type Props = {
   stores: any[];
@@ -8,7 +9,7 @@ type Props = {
 
 const ProductStores = ({ stores, prices }: Props) => {
   console.log(stores[0].group);
-  console.log(prices[0].store.code);
+  console.log(prices[0].current_price.price);
 
   // <Text>{`Gå #km for ${item.current_price.price}kr hos ${item.store.name}`}</Text>
   return (
@@ -20,7 +21,7 @@ const ProductStores = ({ stores, prices }: Props) => {
           <View style={styles.item}>
 
             {prices.some((obj) => obj.store && obj.store.code === item.group) ? (
-                <Text>{item.name}</Text>
+                <Text>`{item.name} : price {useGetPriceAtStore(item.group, prices)}</Text>
             ) : (
               <Text>Mangler informasjon</Text>
             )}
