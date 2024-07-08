@@ -17,7 +17,7 @@ export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
         const res = await fetch(url, options);
         const data = await res.json();
 
-        console.log(data)
+        //console.log(data)
         setStores(data);
       } catch (error) {
         console.log(error);

@@ -5,55 +5,38 @@ import { Product } from "../../utils/types";
 import ToScanButton from "../(navigation)/ToScanButton";
 import { useGetNearbyStores } from "../../hooks/useGetNearbyStores";
 import { useGetUserLocation } from "../../hooks/useGetUserLocation";
+import ProductStores from "./ProductStores";
 
 type Props = {
   product: string;
 };
 
 const ProductPage = ({ product }: Props) => {
-  console.log(product);
+  //console.log(product);
   const {lat, lng } = useGetUserLocation()
-  // const [stores, setStores] = useState<any[] | null>(null)
-  const stores = useGetNearbyStores(lat, lng, 10)
-  //if (lat && lng) {
-  //
-  //  console.log(`lat: ${lat}, lng: ${lng}`)
-  //  setStores(storesT)
-  // }
-
-  const nearbyStores = stores?.data || null;
-
+  
+  const stores = useGetNearbyStores(59.911491, 10.757933, 10)
+  //console.log(stores)
   const productInfo: Product[] | null = useGetProductInformation(product)
-  
-  if (productInfo) {
-    
-    console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `)
-  } 
-  
-  if (!productInfo || !nearbyStores ) {
+
+    if (productInfo) {
+
+        console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `)
+    } 
+
+    if (!productInfo || !stores || !lat || !lng) {
         return (
           <View style={styles.container}>
             <Text>Loading...</Text>
             <ToScanButton />
           </View>
-    );
-  }
-  console.log(nearbyStores)
+        );
+      }
+
   return (
 <View style={styles.container}>
-      <FlatList
-        data={productInfo}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-            <View style={styles.item}>
-            {item.current_price && item.store ? (
-              <Text>{`Gå #km for ${item.current_price.price}kr hos ${item.store.name}`}</Text>
-            ) : (
-              <Text>Mangler informasjon</Text>
-            )}
-          </View>
-        )}
-      />
+  <ProductStores prices={productInfo} stores={stores.data}/>
+      
       <ToScanButton />
     </View>
   );
