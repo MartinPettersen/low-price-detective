@@ -12,7 +12,7 @@ type Props = {
 const ProductPage = ({ product }: Props) => {
   console.log(product);
 
-  const stores = useGetNearbyStores("59.911491", 10.757933, "10")
+  const stores = useGetNearbyStores(59.911491, 10.757933, 10)
   console.log(stores.data[0].position)
 
   const productInfo: Product[] | null = useGetProductInformation(product)
