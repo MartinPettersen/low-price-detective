@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Product } from "../utils/types";
 
 export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
   const [stores, setStores] = useState<any[] | null>(null);
