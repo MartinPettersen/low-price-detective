@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useGetProductInformation } from "../../hooks/useGetProductInformation";
 import { Product } from "../../utils/types";
 import ToScanButton from "../(navigation)/ToScanButton";
+import { useGetNearbyStores } from "../../hooks/useGetNearbyStores";
 
 type Props = {
   product: string;
@@ -11,11 +12,14 @@ type Props = {
 const ProductPage = ({ product }: Props) => {
   console.log(product);
 
+  const stores = useGetNearbyStores("59.911491", 10.757933, "10")
+  console.log(stores.data[0].position)
+
   const productInfo: Product[] | null = useGetProductInformation(product)
 
     if (productInfo) {
 
-        console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.name} `)
+        console.log(`Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `)
     } 
 
     if (!productInfo) {
