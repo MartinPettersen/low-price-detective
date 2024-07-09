@@ -2,13 +2,16 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 type Props = {
-    buttonText: string,
-    action: () => void
-}
+  buttonText: string;
+  action: () => void;
+};
 
-const ScanButton = ({buttonText, action}: Props) => {
+const ScanButton = ({ buttonText, action }: Props) => {
   return (
-    <TouchableOpacity style={[styles.button, styles.shadow]} onPress={() => action()}>
+    <TouchableOpacity
+      style={[styles.button, styles.shadow]}
+      onPress={() => action()}
+    >
       <Text style={styles.buttonText}>{buttonText}</Text>
     </TouchableOpacity>
   );

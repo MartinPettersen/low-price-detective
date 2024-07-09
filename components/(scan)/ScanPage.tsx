@@ -17,7 +17,6 @@ const ScanPage = () => {
   const [ean, setEan] = useState<string | null>(null);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-
   useEffect(() => {
     const getCameraPermissions = async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -35,10 +34,8 @@ const ScanPage = () => {
   const handleBarCodeScanned = ({ type, data }: ScanProps) => {
     setEan(data);
     setScanned(true);
-    navigation.navigate("Options", { product: data })
+    navigation.navigate("Options", { product: data });
   };
-
-
 
   if (hasPermission === null) {
     return <Text>Ber om kamera tilgang</Text>;
@@ -52,7 +49,7 @@ const ScanPage = () => {
       <CameraView
         onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
         barcodeScannerSettings={{
-          barcodeTypes: ["ean13"],
+          barcodeTypes: ["ean13", "ean8"],
         }}
         style={StyleSheet.absoluteFillObject}
       />

@@ -2,8 +2,8 @@
 export type RootStackParamList = {
     Home: undefined;
     Scan: undefined;
-    Options:  { product: any };
-    Map: { startLat: string, startLng: string, endLat: string, endLng: string, title: string, description: string}
+    Options: { product: any };
+    Map: { startLat: string, startLng: string, endLat: string, endLng: string, title: string, description: string }
 };
 
 export type Category = {
@@ -51,6 +51,6 @@ export type Product = {
     updated_at: string;
     url: string;
     vendor: string;
-    weight?: number | null; 
-    weight_unit?: string | null; 
+    weight?: number | null;
+    weight_unit?: string | null;
 };

@@ -22,8 +22,9 @@ const ProductPage = ({ product }: Props) => {
 
   if (!productInfo || !stores || !lat || !lng) {
     return (
-      <View style={styles.container}>
+      <View style={styles.loadingContainer}>
         <Text style={styles.text}>Loading...</Text>
+        <ToScanButton />
       </View>
     );
   }
@@ -37,7 +38,7 @@ const ProductPage = ({ product }: Props) => {
           <Slider
             style={styles.slider}
             minimumValue={0.1}
-            maximumValue={2}
+            maximumValue={20}
             step={0.1}
             value={km}
             onValueChange={(value) => setKm(Math.round(value * 100) / 100)}
@@ -69,8 +70,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 18,
     marginTop: 0,
   },

@@ -12,8 +12,14 @@ type Props = {
   description: string;
 };
 
-const MapPage = ({startLat, startLng, endLat, endLng, title, description}: Props) => {
-
+const MapPage = ({
+  startLat,
+  startLng,
+  endLat,
+  endLng,
+  title,
+  description,
+}: Props) => {
   const initialRegion = {
     latitude: startLat,
     longitude: startLng,
@@ -21,9 +27,8 @@ const MapPage = ({startLat, startLng, endLat, endLng, title, description}: Props
     longitudeDelta: Math.abs(startLng - endLng) * 2.5,
   };
 
-
   return (
-<View style={styles.container}>
+    <View style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={initialRegion}
@@ -35,10 +40,9 @@ const MapPage = ({startLat, startLng, endLat, endLng, title, description}: Props
           description={description}
         />
       </MapView>
-        <View style={styles.buttonContainer}>
-
+      <View style={styles.buttonContainer}>
         <ReturnButton />
-        </View>
+      </View>
     </View>
   );
 };
@@ -57,6 +61,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 20,
   },
-})
+});
 
 export default MapPage;

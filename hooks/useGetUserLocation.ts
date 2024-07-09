@@ -8,18 +8,18 @@ export const useGetUserLocation = () => {
 
   useEffect(() => {
     (async () => {
-        const { status } = await Location.requestForegroundPermissionsAsync()
-        if (status !== 'granted') {
-            console.log('Fikk ikke tilgang til bruker lokasjon')
-            return
-        }
-        const location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.Highest,
-        });
-        setLat(location.coords.latitude)
-        setLng(location.coords.longitude)
+      const { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        console.log('Fikk ikke tilgang til bruker lokasjon')
+        return
+      }
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+      });
+      setLat(location.coords.latitude)
+      setLng(location.coords.longitude)
     })()
-}, [lat, lng])
+  }, [lat, lng])
 
-  return {lat, lng};
+  return { lat, lng };
 };

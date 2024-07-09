@@ -7,14 +7,10 @@ import { RootStackParamList } from "../utils/types";
 type ProductRouteProp = RouteProp<RootStackParamList, "Options">;
 
 const ProductOptionsScreen = () => {
+  const route = useRoute<ProductRouteProp>();
+  const { product } = route.params;
 
-
-    const route = useRoute<ProductRouteProp>();
-    const { product } = route.params;
-
-  return (
-    <ProductPage product={product} />
-  );
+  return <ProductPage product={product} />;
 };
 
 export default ProductOptionsScreen;
