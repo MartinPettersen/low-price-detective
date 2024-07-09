@@ -4,7 +4,6 @@ export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
   const [stores, setStores] = useState<any | null>(null);
 
   
-  console.log(`km: ${km}`)
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null;
     const fetchStores = async () => {
@@ -27,12 +26,6 @@ export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
 
         allStores = initialData.data;
         lastPage = initialData.meta.last_page; 
-
-        console.log("the last page")
-        console.log(lastPage)
-        if(lastPage == undefined){
-          console.log("undefined")
-        }
 
         for (currentPage = 2; currentPage <= lastPage; currentPage++) {
           const urlLocal = `https://kassal.app/api/v1/physical-stores?lat=${lat}&lng=${lng}&km=${km}&page=${currentPage}`;

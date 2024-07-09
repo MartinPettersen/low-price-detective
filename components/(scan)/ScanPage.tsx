@@ -13,9 +13,8 @@ type ScanProps = {
 
 const ScanPage = () => {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const [scanned, setScanned] = useState(true);
+  const [scanned, setScanned] = useState(false);
   const [ean, setEan] = useState<string | null>(null);
-  // const productInfo = useGetProductInformation(ean);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
 

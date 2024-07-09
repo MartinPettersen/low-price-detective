@@ -13,7 +13,9 @@ export const useGetUserLocation = () => {
             console.log('Fikk ikke tilgang til bruker lokasjon')
             return
         }
-        const location = await Location.getCurrentPositionAsync({})
+        const location = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Highest,
+        });
         setLat(location.coords.latitude)
         setLng(location.coords.longitude)
     })()
