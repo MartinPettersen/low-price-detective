@@ -22,11 +22,11 @@ const ProductPage = ({ product }: Props) => {
   return (
     <View style={styles.container}>
       {(!productInfo || !stores || !lat || !lng) ? 
-        <Text>Loading...</Text>
+        <Text style={styles.text}>Loading...</Text>
         :
         <>
-        <ToScanButton />
         <ProductStores prices={productInfo} stores={stores} lat={lat} lng={lng} />
+        <ToScanButton />
         </>        
       }
 
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     padding: 18,
-    marginTop: 0,
+    marginTop: 200,
   },
   item: {
     padding: 16,
@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
+  text: {
+    color: "black"
+  }
 });
 
 export default ProductPage;

@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import ScanButton from "../(scan)/ScanButton";
+import ReturnButton from "./ReturnButton";
 
 type Props = {
   startLat: number;
@@ -34,6 +36,10 @@ const MapPage = ({startLat, startLng, endLat, endLng, title, description}: Props
           description={description}
         />
       </MapView>
+        <View style={styles.buttonContainer}>
+
+        <ReturnButton />
+        </View>
     </View>
   );
 };
@@ -41,9 +47,16 @@ const MapPage = ({startLat, startLng, endLat, endLng, title, description}: Props
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "flex-end",
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  buttonContainer: {
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 20,
   },
 })
 
