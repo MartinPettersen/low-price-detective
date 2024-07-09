@@ -14,11 +14,11 @@ const useGetTravelDistance = (startLat: number, startLng: number, endLat: number
 
     const distance = Math.round((earthRadius * chordLengthSquared) * 100) / 100;
 
-
     if ((distance) < 1 ) {
         return `${distance * 1000} meter`
-    } 
-    return `${distance} km`
+    } else {
+        return `${distance} km`
+    }
 
 }
 

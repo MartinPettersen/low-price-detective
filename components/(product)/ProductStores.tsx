@@ -11,8 +11,6 @@ type Props = {
 };
 
 const ProductStores = ({ stores, prices, lat, lng }: Props) => {
-  //console.log(stores[0].position.lat);
-  console.log(prices[0]);
 
   return (
     <View>
@@ -20,12 +18,15 @@ const ProductStores = ({ stores, prices, lat, lng }: Props) => {
         data={stores}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-
-            {prices.some((obj) => obj.store && obj.store.code === item.group) ? (
+          <View>
+            {prices.some(
+              (obj) => obj.store && obj.store.code === item.group
+            ) ? (
+              <View style={styles.item}>
                 <Text>{`${useGetPriceAtStore(item.group, prices)}kr hos ${item.name} avstand: ${useGetTravelDistance(lat, lng, item.position.lat, item.position.lng)} `}</Text>
+              </View>
             ) : (
-              <Text>Mangler informasjon</Text>
+                null
             )}
           </View>
         )}

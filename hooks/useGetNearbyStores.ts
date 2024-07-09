@@ -1,25 +1,37 @@
 import { useState, useEffect } from "react";
 
 export const useGetNearbyStores = (lat: number, lng: number, km: number) => {
-  const [stores, setStores] = useState<any[] | null>(null);
-
+  const [stores, setStores] = useState<any | null>(null);
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const url = `https://kassal.app/api/v1/physical-stores?lat=${lat}&lng=${lng}&km=${km}`;
+
+
+        let allStores = [];
+        let currentPage = 1;
+        let lastPage = 1;
+
+        const url = `https://kassal.app/api/v1/physical-stores?lat=${lat}&lng=${lng}&km=${km}&page=${currentPage}`;
         const options = {
           headers: {
             "Authorization": `Bearer ${process.env.EXPO_PUBLIC_KASSAL_KEY}`,
           },
         };
 
-        const res = await fetch(url, options);
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
+        const initialRes = await fetch(url, options);
+        const initialData = await initialRes.json();
+
+        allStores = initialData.data;
+        lastPage = initialData.meta.last_page; 
+
+        for (currentPage = 2; currentPage <= lastPage; currentPage++) {
+          const urlLocal = `https://kassal.app/api/v1/physical-stores?lat=${lat}&lng=${lng}&km=${km}&page=${currentPage}`;
+          const res = await fetch(urlLocal, options);
+          const data = await res.json();
+          allStores = [...allStores, ...data.data];
         }
 
-        const data = await res.json();
-        setStores(data);
+        setStores(allStores);
       } catch (error) {
         console.log("Error fetching nearby stores:", error);
         setStores(null);

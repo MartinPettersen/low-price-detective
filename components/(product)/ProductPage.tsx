@@ -12,31 +12,24 @@ type Props = {
 };
 
 const ProductPage = ({ product }: Props) => {
-  //console.log(product);
   const { lat, lng } = useGetUserLocation();
 
-  const stores = useGetNearbyStores(lat, lng, 10);
-  //console.log(stores)
+  const stores = useGetNearbyStores(lat, lng, 1.5);
   const productInfo: Product[] | null = useGetProductInformation(product);
 
-  if (productInfo) {
-    console.log(
-      `Gå #km for ${productInfo[0].current_price.price}kr hos ${productInfo[0].store.code} `
-    );
-  }
 
 
   return (
     <View style={styles.container}>
       {(!productInfo || !stores || !lat || !lng) ? 
         <Text>Loading...</Text>
-
-      :
-
-      <ProductStores prices={productInfo} stores={stores.data} lat={lat} lng={lng} />
+        :
+        <>
+        <ToScanButton />
+        <ProductStores prices={productInfo} stores={stores} lat={lat} lng={lng} />
+        </>        
       }
 
-      <ToScanButton />
     </View>
   );
 };
@@ -47,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding: 18,
-    marginTop: 200,
+    marginTop: 0,
   },
   item: {
     padding: 16,
