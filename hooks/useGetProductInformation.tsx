@@ -18,7 +18,6 @@ export const useGetProductInformation = (ean: string) => {
 
         const res = await fetch(url, options);
         const data = await res.json();
-        console.log(data)
         setProductInformation(data.data.products);
       } catch (error) {
         console.log(error);
