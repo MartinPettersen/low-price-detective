@@ -16,12 +16,11 @@ const ProductStores = ({ stores, prices, lat, lng }: Props) => {
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-
   return (
     <View>
       <FlatList
         data={stores}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => `${item.id}-${item.name}`}
         renderItem={({ item }) => (
           <View>
             {prices.some(
