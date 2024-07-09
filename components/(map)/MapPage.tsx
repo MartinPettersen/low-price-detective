@@ -18,8 +18,8 @@ const MapPage = ({startLat, startLng, endLat, endLng, title, description}: Props
   const initialRegion = {
     latitude: startLat,
     longitude: startLng,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: Math.abs(startLat - endLat) * 2.5,
+    longitudeDelta: Math.abs(startLng - endLng) * 2.5,
   };
 
 
