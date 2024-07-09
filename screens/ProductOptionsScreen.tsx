@@ -2,12 +2,9 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import React from "react";
 import { View, Text } from "react-native";
 import ProductPage from "../components/(product)/ProductPage";
+import { RootStackParamList } from "../utils/types";
 
-type RootStackParamList = {
-  Product: { product: any };
-};
-
-type ProductRouteProp = RouteProp<RootStackParamList, "Product">;
+type ProductRouteProp = RouteProp<RootStackParamList, "Options">;
 
 const ProductOptionsScreen = () => {
 

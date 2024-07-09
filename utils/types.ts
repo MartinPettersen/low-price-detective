@@ -2,7 +2,8 @@
 export type RootStackParamList = {
     Home: undefined;
     Scan: undefined;
-    Options: any;
+    Options:  { product: any };
+    Map: { startLat: string, startLng: string, endLat: string, endLng: string, title: string, description: string}
 };
 
 export type Category = {

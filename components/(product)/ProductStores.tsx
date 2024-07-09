@@ -1,7 +1,9 @@
 import React from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
+import { FlatList, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useGetPriceAtStore } from "../../hooks/useGetPriceAtStore";
 import useGetTravelDistance from "../../hooks/useGetTravelDistance";
+import { RootStackParamList } from "../../utils/types";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 type Props = {
   stores: any[];
@@ -11,6 +13,9 @@ type Props = {
 };
 
 const ProductStores = ({ stores, prices, lat, lng }: Props) => {
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
 
   return (
     <View>
@@ -22,9 +27,12 @@ const ProductStores = ({ stores, prices, lat, lng }: Props) => {
             {prices.some(
               (obj) => obj.store && obj.store.code === item.group
             ) ? (
-              <View style={styles.item}>
+              
+              <TouchableOpacity style={styles.item}
+              onPress={() => navigation.navigate("Map", { startLat: lat, startLng: lng, endLat:item.position.lat, endLng: item.position.lng, title: item.name, description: `${useGetPriceAtStore(item.group, prices)}kr`})}>
+                
                 <Text>{`${useGetPriceAtStore(item.group, prices)}kr hos ${item.name} avstand: ${useGetTravelDistance(lat, lng, item.position.lat, item.position.lng)} `}</Text>
-              </View>
+              </TouchableOpacity>
             ) : (
                 null
             )}
